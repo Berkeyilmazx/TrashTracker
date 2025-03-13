@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trash Tracker Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+.hidden { display: none; }
+.fullness-green { background-color: #4CAF50; color: white; padding: 5px; border-radius: 5px; }
+.fullness-yellow { background-color: #FFC107; color: black; padding: 5px; border-radius: 5px; }
+.fullness-red { background-color: #F44336; color: white; padding: 5px; border-radius: 5px; }
+</style>
+</head>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <span class="w3-bar-item w3-left"><b>Trash Tracker</b></span>
+  <div class="w3-bar-item w3-right" onclick="toggleUserList()" style="cursor:pointer;">
+    <i class="fa fa-users"></i> <span id="active-users-count">0</span>
+    <div id="active-users-list" class="w3-card w3-white w3-padding hidden">
+      <h5>Active Users</h5>
+      <ul id="user-list"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+</nav>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> Trash Tracker Dashboard</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-third w3-container w3-red w3-padding-16">
+      <div class="w3-left"><i class="fa fa-trash w3-xxxlarge"></i></div>
+      <div class="w3-right">
+        <h3 id="total-bins">0</h3>
+      </div>
+      <div class="w3-clear"></div>
+      <h4>Total Bins</h4>
+    </div>
+    <div class="w3-third w3-container w3-yellow w3-padding-16">
+      <div class="w3-left"><i class="fa fa-exclamation-triangle w3-xxxlarge"></i></div>
+      <div class="w3-right">
+        <h3 id="full-bins">0</h3>
+      </div>
+      <div class="w3-clear"></div>
+      <h4>Full Bins</h4>
+    </div>
+    <div class="w3-third w3-container w3-green w3-padding-16">
+      <div class="w3-left"><i class="fa fa-clock-o w3-xxxlarge"></i></div>
+      <div class="w3-right">
+        <h3 id="last-collection">N/A</h3>
+      </div>
+      <div class="w3-clear"></div>
+      <h4>Last Collection</h4>
+    </div>
+  </div>
+
+  <div class="w3-container">
+    <h5>Bin Status</h5>
+    <ul id="bin-list" class="w3-ul w3-card-4">
+      <!-- Dynamic bin data -->
+    </ul>
+  </div>
+</div>
+
+<script>
+// Example bin data
+const bins = [
+  { name: "Bin #1", fullness: 70 },
+  { name: "Bin #2", fullness: 50 },
+  { name: "Bin #3", fullness: 90 },
+  { name: "Bin #4", fullness: 30 },
+  { name: "Bin #5", fullness: 80 },
+  { name: "Bin #6", fullness: 40 },
+  { name: "Bin #7", fullness: 60 },
+  { name: "Bin #8", fullness: 75 },
+  { name: "Bin #9", fullness: 95 },
+  { name: "Bin #10", fullness: 85 }
+];
+
+// Function to determine color class
+function getFullnessClass(fullness) {
+  if (fullness >= 90) return "fullness-red";
+  if (fullness >= 50) return "fullness-yellow";
+  return "fullness-green";
+}
+
+// Populate bin list
+document.getElementById("bin-list").innerHTML = bins.map(bin => 
+  `<li class='w3-padding'><b>${bin.name}</b> - <span class='${getFullnessClass(bin.fullness)}'>${bin.fullness}%</span></li>`
+).join('');
+
+// Example active users
+document.getElementById("active-users-count").innerText = "3";
+const users = ["John", "Mike", "Sarah"];
+document.getElementById("user-list").innerHTML = users.map(user => `<li>${user}</li>`).join('');
+
+// Toggle active user list
+function toggleUserList() {
+  document.getElementById("active-users-list").classList.toggle("hidden");
+}
+</script>
+
+</body>
+</html>
